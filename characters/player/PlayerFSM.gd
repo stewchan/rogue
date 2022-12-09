@@ -1,4 +1,4 @@
-extends FiniteStateMachine
+extends FSM
 
 
 func _init() -> void:

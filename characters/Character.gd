@@ -21,4 +21,4 @@ func _physics_process(delta: float) -> void:
 func move() -> void:
 	move_direction = move_direction.normalized()
 	velocity += move_direction * acceleration
-	velocity = velocity.clamped(max_speed)
+	velocity = velocity.limit_length(max_speed)
