@@ -32,8 +32,11 @@ func move() -> void:
 func take_damage(damage: int, dir: Vector2, force: int) -> void:
 	can_move = false
 	hp -= damage
-	state_machine.set_state(state_machine.states.hurt)
-	velocity += dir * force
-
+	if hp > 0:
+		state_machine.set_state(state_machine.states.hurt)
+		velocity += dir * force
+	else:
+		state_machine.set_state(state_machine.states.dead)
+		velocity += dir * force * 2
 	yield(get_tree().create_timer(0.5), "timeout")
 	can_move = true
