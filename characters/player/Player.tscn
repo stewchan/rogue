@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://characters/player/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/heroes/knight/knight_idle_spritesheet.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://characters/player/PlayerFSM.gd" type="Script" id=5]
 [ext_resource path="res://assets/heroes/knight/weapon_sword_1.png" type="Texture" id=6]
 [ext_resource path="res://assets/effects (new)/slash_effect_anim_spritesheet.png" type="Texture" id=7]
+[ext_resource path="res://characters/Hitbox.gd" type="Script" id=8]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -157,6 +158,10 @@ tracks/1/keys = {
 "values": [ 0, 0, 1, 2, 3, 4 ]
 }
 
+[sub_resource type="CapsuleShape2D" id=20]
+radius = 1.99998
+height = 12.0
+
 [sub_resource type="Animation" id=18]
 length = 0.001
 tracks/0/type = "value"
@@ -206,6 +211,18 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Node2D/Sprite/Hitbox/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=19]
@@ -260,6 +277,18 @@ tracks/3/keys = {
 "update": 1,
 "values": [ 0, 1, 1 ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Node2D/Sprite/Hitbox/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 
 [node name="Player" instance=ExtResource( 4 )]
 collision_layer = 2
@@ -291,6 +320,18 @@ position = Vector2( 1, -7 )
 rotation = -2.35619
 texture = ExtResource( 6 )
 offset = Vector2( 5.35778, -4.52986 )
+
+[node name="Hitbox" type="Area2D" parent="Sword/Node2D/Sprite" index="0"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sword/Node2D/Sprite/Hitbox" index="0"]
+position = Vector2( 5.65684, -4.24267 )
+rotation = 0.785398
+scale = Vector2( 1, 1 )
+shape = SubResource( 20 )
+disabled = true
 
 [node name="SlashSprite" type="Sprite" parent="Sword" index="1"]
 visible = false
