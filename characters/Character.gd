@@ -13,7 +13,7 @@ onready var animated_sprite: AnimatedSprite = $AnimatedSprite
 
 var move_direction: Vector2 = Vector2.ZERO
 var velocity: Vector2 = Vector2.ZERO
-var can_move: bool = true
+#var can_move: bool = true
 
 
 func _physics_process(delta: float) -> void:
@@ -22,15 +22,15 @@ func _physics_process(delta: float) -> void:
 
 
 func move() -> void:
-	if not can_move:
-		return
+#	if not can_move:
+#		return
 	move_direction = move_direction.normalized()
 	velocity += move_direction * acceleration
 	velocity = velocity.limit_length(max_speed)
 
 
 func take_damage(damage: int, dir: Vector2, force: int) -> void:
-	can_move = false
+#	can_move = false
 	hp -= damage
 	if hp > 0:
 		state_machine.set_state(state_machine.states.hurt)
@@ -39,4 +39,4 @@ func take_damage(damage: int, dir: Vector2, force: int) -> void:
 		state_machine.set_state(state_machine.states.dead)
 		velocity += dir * force * 2
 	yield(get_tree().create_timer(0.5), "timeout")
-	can_move = true
+#	can_move = true

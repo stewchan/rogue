@@ -17,7 +17,7 @@ _global_script_classes=[ {
 "base": "Character",
 "class": "Enemy",
 "language": "GDScript",
-"path": "res://characters/Enemy.gd"
+"path": "res://characters/enemy/Enemy.gd"
 }, {
 "base": "Node",
 "class": "FSM",

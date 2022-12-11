@@ -3,7 +3,7 @@
 [ext_resource path="res://assets/full tilemap.png" type="Texture" id=1]
 [ext_resource path="res://characters/player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Game.gd" type="Script" id=3]
-[ext_resource path="res://characters/FlyingCreature.tscn" type="PackedScene" id=4]
+[ext_resource path="res://characters/enemy/FlyingCreature.tscn" type="PackedScene" id=4]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -67,4 +67,6 @@ tile_data = PoolIntArray( 0, 4, 0, 1, 4, 0, 2, 4, 0, 3, 4, 0, 4, 4, 0, 5, 4, 0, 
 position = Vector2( 241, 126 )
 
 [node name="FlyingCreature" parent="." instance=ExtResource( 4 )]
-position = Vector2( 21, 24 )
+position = Vector2( 118, 26 )
+acceleration = 30
+max_speed = 50
