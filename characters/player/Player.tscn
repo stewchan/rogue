@@ -6,9 +6,9 @@
 [ext_resource path="res://characters/Character.tscn" type="PackedScene" id=4]
 [ext_resource path="res://characters/player/PlayerFSM.gd" type="Script" id=5]
 [ext_resource path="res://assets/heroes/knight/weapon_sword_1.png" type="Texture" id=6]
-[ext_resource path="res://assets/effects (new)/slash_effect_anim_spritesheet.png" type="Texture" id=7]
+[ext_resource path="res://assets/effects/slash_effect_anim_spritesheet.png" type="Texture" id=7]
 [ext_resource path="res://characters/Hitbox.gd" type="Script" id=8]
-[ext_resource path="res://assets/effects (new)/enemy_afterdead_explosion_anim_spritesheet.png" type="Texture" id=9]
+[ext_resource path="res://assets/effects/enemy_afterdead_explosion_anim_spritesheet.png" type="Texture" id=9]
 
 [sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 9 )

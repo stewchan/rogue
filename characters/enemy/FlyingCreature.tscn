@@ -1,26 +1,21 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://characters/Hitbox.gd" type="Script" id=1]
-[ext_resource path="res://assets/effects (new)/enemy_afterdead_explosion_anim_spritesheet.png" type="Texture" id=2]
 [ext_resource path="res://characters/enemy/Enemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://characters/enemy/FlyingCreatureFSM.gd" type="Script" id=4]
 [ext_resource path="res://characters/enemy/FlyingCreature.gd" type="Script" id=5]
 [ext_resource path="res://assets/enemies/flying creature/fly_anim_spritesheet.png" type="Texture" id=6]
 
 [sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 2 )
 region = Rect2( 16, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 2 )
 region = Rect2( 32, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 2 )
 region = Rect2( 48, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=1]
@@ -235,6 +230,8 @@ radius = 4.0
 [node name="FlyingCreature" instance=ExtResource( 3 )]
 collision_mask = 2
 script = ExtResource( 5 )
+acceleration = 20
+max_speed = 50
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource( 4 )
