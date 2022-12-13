@@ -26,13 +26,15 @@ func _open_doors() -> void:
 	
 func _close_entrance() -> void:
 	for entry_position in entrance.get_children():
-		tilemap.set_cellv(tilemap.world_to_map(entry_position.position), 1)
-		tilemap.set_cellv(tilemap.world_to_map((entry_position.position) + Vector2.DOWN), 2)
+		var pos = tilemap.world_to_map(entry_position.position)
+		var sub_tile = Vector2(1,2)
+		tilemap.set_cellv(pos, 6, false, false, false, sub_tile)
 		
 
 func _spawn_enemies() -> void:
 	for enemy_position in enemy_positions_container.get_children():
 		var enemy: KinematicBody2D = ENEMY_SCENES.FlyingCreature.instance()
+		# warning-ignore:return_value_discarded
 		enemy.connect("tree_exited", self, "_on_enemy_killed")
 		enemy.position = enemy_position.position
 		call_deferred("add_child", enemy)
@@ -40,12 +42,15 @@ func _spawn_enemies() -> void:
 		var spawn_explosion: AnimatedSprite = SPAWN_EXPLOSION_SCENE.instance()
 		spawn_explosion.position = enemy_position.position
 		call_deferred("add_child", spawn_explosion)
+		
+		print(enemy.name)
 
 
 func _on_enemy_killed() -> void:
 	num_enemies -= 1
 	if num_enemies == 0:
 		_open_doors()
+
 
 func _on_PlayerDetector_body_entered(_body: KinematicBody2D) -> void:
 	player_detector.queue_free()

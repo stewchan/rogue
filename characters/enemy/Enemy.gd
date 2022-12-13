@@ -2,7 +2,7 @@ class_name Enemy, "res://assets/enemies/goblin/goblin_idle_anim_f0.png"
 extends Character
 
 
-onready var navigation: Navigation2D = get_parent().current_scene.get_node("Navigation2D")
+onready var navigation: Navigation2D = get_parent().get_node("Navigation2D") #current_scene.get_node("Navigation2D")
 onready var player: KinematicBody2D = get_tree().current_scene.get_node("Player")
 onready var path_timer : Timer = $PathTimer
 
