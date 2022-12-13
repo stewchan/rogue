@@ -1,7 +1,13 @@
 extends StaticBody2D
 
-onready var animation_player: AnimationPlayer = $AnimationPlayer
+onready var animated_sprite: AnimatedSprite = $AnimatedSprite
 
 
 func open() -> void:
-	animation_player.play("open")
+	animated_sprite.play("opening")
+
+
+func _on_AnimatedSprite_animation_finished() -> void:
+	animated_sprite.play("fully_open")
+	animated_sprite.stop()
+	

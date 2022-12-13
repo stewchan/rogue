@@ -10,11 +10,11 @@ tile_data = PoolIntArray( 131072, 6, 262144, 131073, 6, 196609, 131074, 6, 19661
 [node name="TileMap2" parent="Navigation2D" index="1"]
 tile_data = PoolIntArray( 720896, 6, 65537, 720897, 6, 131073, 720898, 6, 131073, 720899, 6, 131073, 720900, 6, 131073, 720901, 6, 131073, 720902, 6, 131073, 720903, 6, 131072, 720906, 6, 65539, 720907, 6, 131073, 720908, 6, 131073, 720909, 6, 131073, 720910, 6, 131073, 720911, 6, 65538 )
 
+[node name="Position2D" type="Position2D" parent="Doors" index="0"]
+position = Vector2( 64, 49 )
+
 [node name="Position2D" type="Position2D" parent="EnemyPositions" index="0"]
 position = Vector2( 157, 91 )
-
-[node name="Position2D2" type="Position2D" parent="EnemyPositions" index="1"]
-position = Vector2( 48, 100 )
 
 [node name="CollisionShape2D" parent="PlayerDetector" index="0"]
 position = Vector2( 143.5, 176 )

@@ -230,8 +230,6 @@ radius = 4.0
 [node name="FlyingCreature" instance=ExtResource( 3 )]
 collision_mask = 2
 script = ExtResource( 5 )
-acceleration = 20
-max_speed = 50
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource( 4 )
