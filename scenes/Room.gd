@@ -19,16 +19,6 @@ onready var player_detector: Area2D = $PlayerDetector
 
 func _ready() -> void:
 	num_enemies = enemy_positions_container.get_child_count()
-	create_doors()
-	
-	
-# Create the exit doors
-func create_doors() -> void:
-	var position = door_container.get_node("Position2D").position
-	door_container.get_node("Position2D").queue_free()
-	var door = DOOR_SCENE.instance()
-	door.position = position
-	door_container.add_child(door)
 
 
 func _open_doors() -> void:

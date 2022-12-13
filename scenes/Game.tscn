@@ -25,9 +25,6 @@ tint_progress = Color( 0.607843, 0.0509804, 0.0509804, 1 )
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
 
-[node name="Room0" parent="Navigation2D" instance=ExtResource( 1 )]
-script = null
-
 [node name="Rooms" type="Node2D" parent="."]
 
 [node name="Room0" parent="Rooms" instance=ExtResource( 1 )]
