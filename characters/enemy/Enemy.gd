@@ -2,34 +2,20 @@ class_name Enemy, "res://assets/enemies/goblin/goblin_idle_anim_f0.png"
 extends Character
 
 
-onready var navigation: Navigation2D = get_parent().get_node("Navigation2D") #current_scene.get_node("Navigation2D")
 onready var player: KinematicBody2D = get_tree().current_scene.get_node("Player")
-onready var path_timer : Timer = $PathTimer
+onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 
-var path: PoolVector2Array
+
+func _physics_process(_delta: float) -> void:
+	if nav_agent.is_target_reachable():
+		move_direction = position.direction_to(nav_agent.get_next_location())
+		nav_agent.set_velocity(velocity)
 
 
 func chase() -> void:
-	if path:
-		var vector_to_next_point: Vector2 = path[0] - global_position
-		var distance_to_next_point: float = vector_to_next_point.length()
-		if distance_to_next_point < 1:
-			path.remove(0)
-			if not path:
-				return
-		move_direction = vector_to_next_point
-		if vector_to_next_point.x > 0 and animated_sprite.flip_h:
-			animated_sprite.flip_h = false
-		elif vector_to_next_point.x < 0 and not animated_sprite.flip_h:
-			animated_sprite.flip_h = true
+	if weakref(player).get_ref():
+		nav_agent.set_target_location(player.position)
+		animated_sprite.flip_h = move_direction.x < 0
 
-
-func _on_PathTimer_timeout() -> void:
-	if is_instance_valid(player):
-		path = navigation.get_simple_path(global_position, player.global_position)
-	else:
-		path_timer.stop()
-		path = []
-		move_direction = Vector2.ZERO
 	
 

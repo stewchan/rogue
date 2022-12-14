@@ -11,8 +11,4 @@ acceleration = 20
 max_speed = 50
 hp = 1
 
-[node name="PathTimer" type="Timer" parent="." index="4"]
-wait_time = 0.5
-autostart = true
-
-[connection signal="timeout" from="PathTimer" to="." method="_on_PathTimer_timeout"]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="4"]

@@ -6,11 +6,9 @@ const ENEMY_SCENES: Dictionary = {
 	"FlyingCreature": preload("res://characters/enemy/FlyingCreature.tscn")
 }
 
-const DOOR_SCENE = preload("res://scenes/Door.tscn")
-
 var num_enemies: int
 
-onready var tilemap: TileMap = $Navigation2D/TileMap2
+onready var tilemap: TileMap = $TileMap2
 onready var entrance: Node2D = $Entrance
 onready var door_container: Node2D = $Doors
 onready var enemy_positions_container: Node2D = $EnemyPositions

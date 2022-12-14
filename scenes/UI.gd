@@ -6,7 +6,7 @@ onready var player: KinematicBody2D = get_parent().get_node("Player")
 onready var health_bar: TextureProgress = $HealthBar
 
 
-var max_hp: int = 4
+var max_hp: float = 4.0
 
 
 func _ready() -> void:
@@ -21,6 +21,6 @@ func _update_health_bar(new_value: int) -> void:
 	tween.start()
 
 
-func _on_Player_hp_changed(new_hp) -> void:
-	var new_health: int = int(100 - MIN_HEALTH_OFFSET) * float(float(new_hp)/max_hp) + MIN_HEALTH_OFFSET
+func _on_Player_hp_changed(new_hp:int) -> void:
+	var new_health: int = int((100 - MIN_HEALTH_OFFSET) * new_hp/max_hp) + MIN_HEALTH_OFFSET
 	_update_health_bar(new_health)
