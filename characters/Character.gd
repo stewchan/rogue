@@ -19,7 +19,7 @@ var immune: bool = false
 
 
 func _physics_process(delta: float) -> void:
-	velocity = move_and_slide(velocity, Vector2.UP)
+	velocity = move_and_slide(velocity)
 	velocity = lerp(velocity, Vector2.ZERO, FRICTION * delta)
 
 
@@ -30,9 +30,10 @@ func move() -> void:
 
 
 func take_damage(damage: int, dir: Vector2, force: int) -> void:
-	if(immune): return
-	
+	if(immune):
+		return
 	immune = true
+	
 	self.hp -= damage
 	if hp > 0:
 		state_machine.set_state(state_machine.states.hurt)

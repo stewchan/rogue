@@ -29,5 +29,6 @@ tint_progress = Color( 0.607843, 0.0509804, 0.0509804, 1 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 145, 203 )
+hp = 4
 
 [connection signal="hp_changed" from="Player" to="UI" method="_on_Player_hp_changed"]

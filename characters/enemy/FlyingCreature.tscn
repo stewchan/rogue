@@ -48,7 +48,7 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=6]
-radius = 3.0
+radius = 2.0
 
 [sub_resource type="Animation" id=7]
 length = 0.001
@@ -230,7 +230,6 @@ radius = 4.0
 [node name="FlyingCreature" instance=ExtResource( 3 )]
 collision_mask = 2
 script = ExtResource( 5 )
-hp = 10
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource( 4 )
