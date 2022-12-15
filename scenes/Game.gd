@@ -7,3 +7,7 @@ func _init() -> void:
 
 	OS.set_window_position(screen_size * 0.5 - window_size * 0.5)
 
+
+func _ready() -> void:
+	randomize()
+	$Rooms.spawn_room()

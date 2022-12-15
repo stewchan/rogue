@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://characters/player/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/heroes/knight/knight_idle_spritesheet.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/effects/slash_effect_anim_spritesheet.png" type="Texture" id=7]
 [ext_resource path="res://characters/Hitbox.gd" type="Script" id=8]
 [ext_resource path="res://assets/effects/enemy_afterdead_explosion_anim_spritesheet.png" type="Texture" id=9]
+[ext_resource path="res://assets/effects/light_texture.png" type="Texture" id=10]
 
 [sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 9 )
@@ -471,3 +472,8 @@ hframes = 3
 [node name="SwordAnimationPlayer" type="AnimationPlayer" parent="Sword" index="2"]
 anims/RESET = SubResource( 18 )
 anims/attack = SubResource( 19 )
+
+[node name="Light2D" type="Light2D" parent="." index="5"]
+texture = ExtResource( 10 )
+texture_scale = 2.0
+shadow_enabled = true
