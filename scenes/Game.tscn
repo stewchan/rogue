@@ -24,11 +24,12 @@ texture_progress = ExtResource( 6 )
 tint_progress = Color( 0.607843, 0.0509804, 0.0509804, 1 )
 
 [node name="Rooms" type="Node2D" parent="."]
-position = Vector2( 11, 37 )
 script = ExtResource( 4 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 145, 203 )
 hp = 4
+
+[node name="Camera2D" type="Camera2D" parent="."]
 
 [connection signal="hp_changed" from="Player" to="UI" method="_on_Player_hp_changed"]

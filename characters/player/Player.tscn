@@ -477,3 +477,11 @@ anims/attack = SubResource( 19 )
 texture = ExtResource( 10 )
 texture_scale = 2.0
 shadow_enabled = true
+
+[node name="Camera2D" type="Camera2D" parent="." index="6"]
+current = true
+smoothing_enabled = true
+drag_margin_left = 1.0
+drag_margin_top = 1.0
+drag_margin_right = 1.0
+drag_margin_bottom = 1.0

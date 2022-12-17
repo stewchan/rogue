@@ -10,4 +10,4 @@ func _init() -> void:
 
 func _ready() -> void:
 	randomize()
-	$Rooms.spawn_room()
+	$Rooms.spawn_rooms()

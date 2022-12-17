@@ -12,6 +12,7 @@ onready var entrance: Node2D = $Entrance
 onready var door_container: Node2D = $Doors
 onready var enemy_positions_container: Node2D = $EnemyPositions
 onready var player_detector: Area2D = $PlayerDetector
+onready var door_trigger: Area2D = $DoorTrigger
 
 
 func _ready() -> void:
@@ -56,3 +57,9 @@ func _on_PlayerDetector_body_entered(_body: KinematicBody2D) -> void:
 	_close_entrance()
 	_spawn_enemies()
 	player_detector.queue_free()
+
+
+func _on_DoorTrigger_body_entered(body: Node) -> void:
+	_open_doors()
+	door_trigger.queue_free()
+	
