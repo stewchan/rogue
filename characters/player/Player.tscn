@@ -474,6 +474,7 @@ anims/RESET = SubResource( 18 )
 anims/attack = SubResource( 19 )
 
 [node name="Light2D" type="Light2D" parent="." index="5"]
+visible = false
 texture = ExtResource( 10 )
 texture_scale = 2.0
 shadow_enabled = true

@@ -9,6 +9,7 @@ onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 func _physics_process(_delta: float) -> void:
 	if nav_agent.is_target_reachable():
 		move_direction = position.direction_to(nav_agent.get_next_location())
+		print(move_direction)
 #		nav_agent.set_velocity(velocity)
 
 
