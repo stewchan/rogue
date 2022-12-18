@@ -29,8 +29,6 @@ format = 1
 
 [node name="Entrance" type="Node2D" parent="."]
 
-[node name="PlayerStart" type="Node2D" parent="."]
-
 [node name="EnemyPositions" type="Node2D" parent="."]
 
 [node name="PlayerDetector" type="Area2D" parent="."]

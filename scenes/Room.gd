@@ -8,7 +8,7 @@ var door_scene: PackedScene = preload("res://scenes/Door.tscn")
 
 onready var entrance: Node2D = $Entrance
 onready var doors: Node2D = $Doors
-onready var enemy_positions_container: Node2D = $EnemyPositions
+onready var enemy_positions: Node2D = $EnemyPositions
 onready var player_detector: Area2D = $PlayerDetector
 onready var door_trigger: Area2D = $DoorTrigger
 onready var main_tilemap: TileMap = $MainTilemap
@@ -17,11 +17,6 @@ onready var furniture_tilemap: TileMap = $FurnitureTilemap
 
 var room_size: Vector2
 var cell_size: int = 16
-var num_enemies: int
-
-
-func _ready() -> void:
-	num_enemies = enemy_positions_container.get_child_count()
 
 
 func _open_doors() -> void:
@@ -40,22 +35,22 @@ func _close_entrance() -> void:
 	
 
 func spawn_enemies() -> void:
-	for enemy_position in enemy_positions_container.get_children():
+	for enemy_pos in enemy_positions.get_children():
 		var enemy: KinematicBody2D = ENEMY_SCENES.FlyingCreature.instance()
 		# warning-ignore:return_value_discarded
 		enemy.connect("tree_exited", self, "_on_enemy_killed")
-		enemy.position = enemy_position.position
+		enemy.position = enemy_pos.position
 		call_deferred("add_child", enemy)
 		
 		var spawn_explosion: AnimatedSprite = SPAWN_EXPLOSION_SCENE.instance()
-		spawn_explosion.position = enemy_position.position
+		spawn_explosion.position = enemy_pos.position
 		call_deferred("add_child", spawn_explosion)
 		
 
-func _on_enemy_killed() -> void:
-	num_enemies -= 1
-	if num_enemies == 0:
-		_open_doors()
+#func _on_enemy_killed() -> void:
+#	num_enemies -= 1
+#	if num_enemies == 0:
+#		_open_doors()
 
 
 func _on_PlayerDetector_body_entered(_body: KinematicBody2D) -> void:
@@ -74,7 +69,7 @@ func build(size: Vector2, start_room: bool = false, end_room: bool = false) -> v
 	create_floors_and_walls()
 	create_entrance(start_room)
 	create_door(end_room)
-	
+
 
 func create_floors_and_walls() -> void:
 	for x in range(0, room_size.x):
@@ -124,3 +119,12 @@ func create_door(end_room:bool = false) -> void:
 	main_tilemap.set_cell(x-1, 0, 7, false, false, false, Vector2(1, 0))
 	doors.add_child(door)
 	door_trigger.position = door.position + Vector2(0, cell_size * 1.5)
+
+
+func add_enemies(num_enemies: int) -> void:
+	for i in range(0, num_enemies):
+		var enemy = Position2D.new()
+		var x = (1 + randi() % int(room_size.x - 1)) * cell_size
+		var y = (1 + randi() % int(room_size.y/2)) * cell_size
+		enemy.position = Vector2(x, y)
+		enemy_positions.add_child(enemy)
