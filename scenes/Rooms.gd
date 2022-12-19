@@ -9,7 +9,7 @@ onready var player: KinematicBody2D = get_parent().get_node("Player")
 onready var camera: Camera2D = get_parent().get_node("Camera2D")
 
 var cell_size: int = 16
-var num_rooms: int = 5
+var num_rooms: int = 3
 
 
 func spawn_rooms() -> void:
@@ -20,22 +20,25 @@ func spawn_rooms() -> void:
 	for i in range(0, num_rooms):
 		var size = Vector2(floor(randi()%6 + 8), floor(randi()%6 + 8))
 		if i == 0:
-			room = generate_room(size, true, false)
+			room = generate_room(size, true, false) # starting room
 			spawn_player(room)
 		elif i == num_rooms - 1:
-			room = 	generate_room(size, false, true)
+			room = 	generate_room(size, false, true) # end room
+			room.get_node("Stairs").connect("body_entered", self, "on_body_entered_stairs_down")
 		else:
-			room = 	generate_room(size)
+			room = 	generate_room(size) # regular room
 		room.name = "Room" + str(i)
 		room.z_index = -i
+		room.spawn_enemies()
 		if prev_room:
 			var door_pos = prev_room.get_node("Doors").get_child(0).global_position
 			var entrance_pos = room.get_node("Entrance").get_child(0).global_position
 			room.position.x += door_pos.x - entrance_pos.x
 			room.position.y =  prev_room.position.y - size.y * cell_size 
+			
+			# warning-ignore:return_value_discarded
 			prev_room.get_node("Doors").get_child(0).connect("opened", room, "spawn_enemies")
 		prev_room = room
-		add_child(room)
 
 	
 func generate_room(room_size: Vector2, start_room: bool = false, end_room: bool = false) -> Node2D:
@@ -54,3 +57,7 @@ func spawn_player(room: Node2D) -> void:
 	var x = 1 + randi() % int(room_size.x - 1)
 	var y = room_size.y - 2
 	player.position = Vector2(x, y) * cell_size
+
+
+func on_body_entered_stairs_down(body: KinematicBody2D) -> void:
+	print("stairs down")
