@@ -1,11 +1,11 @@
 [gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://assets/effects/enemy_afterdead_explosion_anim_spritesheet.png" type="Texture" id=1]
-[ext_resource path="res://assets/enemies/goblin/goblin_idle_spritesheet.png" type="Texture" id=2]
-[ext_resource path="res://assets/enemies/goblin/goblin_run_spritesheet.png" type="Texture" id=3]
-[ext_resource path="res://characters/enemy/Enemy.tscn" type="PackedScene" id=4]
-[ext_resource path="res://characters/enemy/Goblin.gd" type="Script" id=5]
-[ext_resource path="res://characters/enemy/GoblinFSM.gd" type="Script" id=6]
+[ext_resource path="res://characters/enemy/Enemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/enemies/goblin/goblin_idle_spritesheet.png" type="Texture" id=3]
+[ext_resource path="res://characters/enemy/goblin/GoblinFSM.gd" type="Script" id=4]
+[ext_resource path="res://characters/enemy/goblin/Goblin.gd" type="Script" id=5]
+[ext_resource path="res://assets/enemies/goblin/goblin_run_spritesheet.png" type="Texture" id=6]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -24,51 +24,51 @@ atlas = ExtResource( 1 )
 region = Rect2( 48, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 3 )
 region = Rect2( 16, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 3 )
 region = Rect2( 32, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 3 )
 region = Rect2( 48, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 3 )
 region = Rect2( 64, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 3 )
 region = Rect2( 80, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 3 )
+atlas = ExtResource( 6 )
 region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 3 )
+atlas = ExtResource( 6 )
 region = Rect2( 16, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 3 )
+atlas = ExtResource( 6 )
 region = Rect2( 32, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 3 )
+atlas = ExtResource( 6 )
 region = Rect2( 48, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 3 )
+atlas = ExtResource( 6 )
 region = Rect2( 64, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 3 )
+atlas = ExtResource( 6 )
 region = Rect2( 80, 0, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=17]
@@ -281,15 +281,15 @@ tracks/1/keys = {
 "values": [ "run" ]
 }
 
-[node name="Goblin" instance=ExtResource( 4 )]
+[node name="Goblin" instance=ExtResource( 2 )]
 collision_mask = 3
 script = ExtResource( 5 )
 acceleration = 30
-max_speed = 75
+max_speed = 60
 projectile_speed = 150
 
 [node name="FiniteStateMachine" parent="." index="0"]
-script = ExtResource( 6 )
+script = ExtResource( 4 )
 
 [node name="AnimatedSprite" parent="." index="1"]
 frames = SubResource( 17 )

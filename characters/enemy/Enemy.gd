@@ -16,7 +16,6 @@ func _physics_process(_delta: float) -> void:
 #	print(nav_agent.distance_to_target())
 #		nav_agent.set_velocity(velocity)
 
-
 func chase() -> void:
 	pass
 #	if weakref(player).get_ref():

@@ -2,8 +2,8 @@ extends Node2D
 
 const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://characters/enemy/SpawnExplosion.tscn")
 const ENEMY_SCENES: Dictionary = {
-	"FlyingCreature": preload("res://characters/enemy/FlyingCreature.tscn"),
-	"Goblin": preload("res://characters/enemy/Goblin.tscn")
+	"FlyingCreature": preload("res://characters/enemy/flying_creature/FlyingCreature.tscn"),
+	"Goblin": preload("res://characters/enemy/goblin/Goblin.tscn")
 }
 var door_scene: PackedScene = preload("res://scenes/Door.tscn")
 var stairs_scene: PackedScene = preload("res://scenes/Stairs.tscn")
@@ -70,9 +70,10 @@ func _on_PlayerDetector_body_entered(_body: KinematicBody2D) -> void:
 	player_detector.queue_free()
 
 
-func _on_DoorTrigger_body_entered(_body: Node) -> void:
-	_open_doors()
-	door_trigger.queue_free()
+func _on_DoorTrigger_body_entered(body: KinematicBody2D) -> void:
+	if body == Player:
+		_open_doors()
+		door_trigger.queue_free()
 
 
 # build a room of a given size
