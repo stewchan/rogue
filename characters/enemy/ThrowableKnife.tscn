@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/enemies/goblin/goblin_knife.png" type="Texture" id=1]
+[ext_resource path="res://characters/enemy/ThrowableKnife.gd" type="Script" id=2]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 1.32787
+height = 6.77568
+
+[node name="ThrowableKnife" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 0.605629
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+
+[connection signal="body_exited" from="." to="." method="_on_ThrowableKnife_body_exited"]
