@@ -162,7 +162,7 @@ func _create_navpoly_instance(rect: Rect2) -> void:
 	navpoly_instance.navpoly = polygon
 
 
-func add_furniture(pos: Vector2, furniture: Vector2) -> void:
+func add_furniture(_pos: Vector2, _furniture: Vector2) -> void:
 	pass
 
 

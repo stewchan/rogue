@@ -20,7 +20,7 @@ func _physics_process(delta: float) -> void:
 
 
 
-func _on_ThrowableKnife_body_exited(body: KinematicBody2D) -> void:
+func _on_ThrowableKnife_body_exited(_body: KinematicBody2D) -> void:
 	if not enemy_exited:
 		enemy_exited = true
 		set_collision_mask_bit(0, true)

@@ -44,4 +44,4 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 		states.hurt:
 			animation_player.play("hurt")
 		states.dead:
-			animation_player.player("dead")
+			animation_player.play("dead")

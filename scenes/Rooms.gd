@@ -24,7 +24,6 @@ func spawn_rooms() -> void:
 			spawn_player(room)
 		elif i == num_rooms - 1:
 			room = 	generate_room(size, false, true) # end room
-			# 
 			room.get_node("Stairs").connect("body_entered", self, "on_body_entered_stairs_down")
 		else:
 			room = 	generate_room(size) # regular room
@@ -60,5 +59,5 @@ func spawn_player(room: Node2D) -> void:
 	player.position = Vector2(x, y) * cell_size
 
 
-func on_body_entered_stairs_down(body: KinematicBody2D) -> void:
+func on_body_entered_stairs_down(_body: KinematicBody2D) -> void:
 	print("stairs down")
