@@ -24,6 +24,7 @@ func spawn_rooms() -> void:
 			spawn_player(room)
 		elif i == num_rooms - 1:
 			room = 	generate_room(size, false, true) # end room
+			# 
 			room.get_node("Stairs").connect("body_entered", self, "on_body_entered_stairs_down")
 		else:
 			room = 	generate_room(size) # regular room
@@ -45,7 +46,7 @@ func generate_room(room_size: Vector2, start_room: bool = false, end_room: bool 
 	var room = room_scene.instance()
 	add_child(room)
 	room.build(room_size, start_room, end_room)
-	var num_enemies = 1 + randi() % 3
+	var num_enemies = 1#1 + randi() % 3
 	room.add_enemies(num_enemies)
 	return room
 	

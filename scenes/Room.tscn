@@ -33,6 +33,8 @@ format = 1
 
 [node name="EnemyPositions" type="Node2D" parent="."]
 
+[node name="Enemies" type="Node2D" parent="."]
+
 [node name="PlayerDetector" type="Area2D" parent="."]
 
 [node name="DoorTrigger" type="Area2D" parent="."]

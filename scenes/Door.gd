@@ -4,9 +4,10 @@ signal opened
 
 onready var animation_player: AnimationPlayer = $AnimationPlayer
 
+
 func open() -> void:
 	animation_player.play("open")
 
 
-func door_opened() -> void:
+func finished_opening() -> void:
 	emit_signal("opened")

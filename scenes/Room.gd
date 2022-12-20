@@ -2,7 +2,8 @@ extends Node2D
 
 const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://characters/enemy/SpawnExplosion.tscn")
 const ENEMY_SCENES: Dictionary = {
-	"FlyingCreature": preload("res://characters/enemy/FlyingCreature.tscn")
+	"FlyingCreature": preload("res://characters/enemy/FlyingCreature.tscn"),
+	"Goblin": preload("res://characters/enemy/Goblin.tscn")
 }
 var door_scene: PackedScene = preload("res://scenes/Door.tscn")
 var stairs_scene: PackedScene = preload("res://scenes/Stairs.tscn")
@@ -10,6 +11,7 @@ var stairs_scene: PackedScene = preload("res://scenes/Stairs.tscn")
 onready var entrance: Node2D = $Entrance
 onready var doors: Node2D = $Doors
 onready var enemy_positions: Node2D = $EnemyPositions
+onready var enemies: Node2D = $Enemies
 onready var player_detector: Area2D = $PlayerDetector
 onready var door_trigger: Area2D = $DoorTrigger
 onready var main_tilemap: TileMap = $MainTilemap
@@ -47,19 +49,20 @@ func add_enemies(num_enemies: int) -> void:
 		
 func spawn_enemies() -> void:
 	for enemy_pos in enemy_positions.get_children():
-		var enemy: KinematicBody2D = ENEMY_SCENES.FlyingCreature.instance()
+		var enemy: KinematicBody2D = ENEMY_SCENES.Goblin.instance()
 		# warning-ignore:return_value_discarded
 		enemy.connect("tree_exited", self, "_on_enemy_killed")
 		enemy.position = enemy_pos.position
-		call_deferred("add_child", enemy)
+		enemies.call_deferred("add_child", enemy)
 		var spawn_explosion: AnimatedSprite = SPAWN_EXPLOSION_SCENE.instance()
 		spawn_explosion.position = enemy_pos.position
 		call_deferred("add_child", spawn_explosion)
+		enemy_pos.queue_free()
 
-#func _on_enemy_killed() -> void:
-#	num_enemies -= 1
-#	if num_enemies == 0:
-#		_open_doors()
+
+func _on_enemy_killed() -> void:
+	if enemies.get_child_count() == 0:
+		_open_doors()
 
 
 func _on_PlayerDetector_body_entered(_body: KinematicBody2D) -> void:
