@@ -8,13 +8,15 @@ const MIN_DISTANCE_TO_PLAYER: int = 40
 export(int) var projectile_speed: int = 150
 
 onready var attack_timer = $AttackTimer
+onready var aim_raycast = $AimRayCast
 
 var can_attack: bool = true
 var distance_to_player: float
 
 
 func _physics_process(_delta: float) -> void:
-	distance_to_player = (global_position - player.global_position).length()
+	if weakref(player).get_ref():
+		distance_to_player = (global_position - player.global_position).length()
 	if nav_agent.is_target_reachable():
 		move_direction = position.direction_to(nav_agent.get_next_location())
 	
@@ -28,7 +30,8 @@ func chase() -> void:
 			nav_target = _get_retreat_target()
 			nav_agent.set_target_location(nav_target)
 		else:
-			if can_attack:
+			aim_raycast.cast_to = player.position - global_position
+			if can_attack: #and !aim_raycast.is_colliding():
 				can_attack = false
 				_throw_knife()
 				attack_timer.start()

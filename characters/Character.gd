@@ -7,6 +7,7 @@ const FRICTION : float = 20.0
 export(int) var acceleration : int = 40
 export(int) var max_speed : int = 100
 export(int) var hp: int = 2 setget set_hp
+export(bool) var flying: bool = false
 
 signal hp_changed(new_hp)
 

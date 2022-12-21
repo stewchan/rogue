@@ -1,7 +1,7 @@
 extends Node2D
 
 var room_scene: PackedScene = preload("res://scenes/Room.tscn")
-var door_scene: PackedScene = preload("res://scenes/Door.tscn")
+var DoorScene: PackedScene = preload("res://scenes/Door.tscn")
 
 export(int) var num_levels: int = 1
 
@@ -24,6 +24,7 @@ func spawn_rooms() -> void:
 			spawn_player(room)
 		elif i == num_rooms - 1:
 			room = 	generate_room(size, false, true) # end room
+			# warning-ignore:return_value_discarded
 			room.get_node("Stairs").connect("body_entered", self, "on_body_entered_stairs_down")
 		else:
 			room = 	generate_room(size) # regular room
