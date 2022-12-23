@@ -2,13 +2,16 @@ extends Node2D
 
 var RoomScene: PackedScene = preload("res://scenes/Room.tscn")
 var DoorScene: PackedScene = preload("res://scenes/Door.tscn")
-var Player: PackedScene = preload("res://characters/player/Player.tscn")
 
 export(int) var num_levels: int = 1
 
-onready var camera: Camera2D = get_parent().get_node("Camera2D")
-
 var cell_size: int = 16
+
+
+func clear() -> void:
+	for n in get_children():
+		remove_child(n)
+		n.queue_free()
 
 
 func build_floor(floor_num: int) -> void:
@@ -26,7 +29,7 @@ func build_floor(floor_num: int) -> void:
 		elif i == num_rooms - 1:
 			room = 	generate_room(size, false, true) # end room
 			# warning-ignore:return_value_discarded
-			room.get_node("Stairs").connect("body_entered", self, "on_body_entered_stairs_down")
+			room.get_node("Stairs").connect("body_entered", get_parent(), "descend")
 		else:
 			room = 	generate_room(size) # regular room
 		room.name = "Room" + str(i)
@@ -53,5 +56,5 @@ func generate_room(room_size: Vector2, start_room: bool = false, end_room: bool 
 
 
 func on_body_entered_stairs_down(_body: KinematicBody2D) -> void:
-	SceneTransition.start_transition_to("res://scenes/Game.tscn")
-	SavedData.current_floor += 1
+	emit_signal("descend")
+	SceneTransition.start_transition()

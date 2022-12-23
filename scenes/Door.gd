@@ -9,5 +9,5 @@ func open() -> void:
 	animation_player.play("open")
 
 
-func finished_opening() -> void:
+func door_opened() -> void:
 	emit_signal("opened")
