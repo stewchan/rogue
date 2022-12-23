@@ -1,6 +1,8 @@
 extends Node2D
 
 
+onready var dungeon = $Dungeon
+
 func _init() -> void:
 	var screen_size: Vector2 = OS.get_screen_size()
 	var window_size: Vector2 = OS.get_window_size()
@@ -9,5 +11,8 @@ func _init() -> void:
 
 
 func _ready() -> void:
-	randomize()
-	$Rooms.spawn_rooms()
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	SavedData.seed_val = rng.get_seed()
+	var num_floors = 3
+	$Dungeon.build_dungeon(num_floors)

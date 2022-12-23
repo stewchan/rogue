@@ -2,7 +2,8 @@ extends Node2D
 
 const ENEMY_SCENES: Dictionary = {
 	"FlyingCreature": preload("res://characters/enemy/flying_creature/FlyingCreature.tscn"),
-	"Goblin": preload("res://characters/enemy/goblin/Goblin.tscn")
+	"Goblin": preload("res://characters/enemy/goblin/Goblin.tscn"),
+	"SlimeBoss": preload("res://characters/enemy/slime_boss/SlimeBoss.tscn")
 }
 var ExplosionSpawn: PackedScene = preload("res://characters/enemy/SpawnExplosion.tscn")
 var DoorScene: PackedScene = preload("res://scenes/Door.tscn")
@@ -13,7 +14,6 @@ onready var entrance: Node2D = $Entrance
 onready var doors: Node2D = $Doors
 onready var enemy_positions: Node2D = $EnemyPositions
 onready var enemies: Node2D = $Enemies
-onready var player_detector: Area2D = $PlayerDetector
 onready var door_trigger: Area2D = $DoorTrigger
 onready var main_tilemap: TileMap = $MainTilemap
 onready var bottom_tilemap: TileMap = $BottomTilemap
@@ -112,13 +112,19 @@ func _create_floors_and_walls() -> void:
 #	_create_navpoly_instance(rect)
 
 
+# The opening or entrance at the bottom of the room
 func _create_entrance(start_room: bool) -> void:
 	var entry_pos = Position2D.new()
 	var x = 1 +  randi() % int(int(room_size.x) - 2)
 	var y = room_size.y
-	entry_pos.position = Vector2(x, y) * cell_size
 	entry_pos.name = "Position2D"
 	entrance.add_child(entry_pos)
+
+	entry_pos.position = Vector2(x, y) * cell_size
+	# If this is a starting room, move player up a couple of cells
+	if start_room:
+		entry_pos.position += Vector2(0, -2) * cell_size
+
 	# Remove wall
 	if not start_room:
 		bottom_tilemap.set_cell(x, int(room_size.y)-1, -1)
@@ -148,8 +154,8 @@ func _create_stairs(end_room: bool = false) -> void:
 	var x = 1 + randi() % int(room_size.x - 2)
 	var stairs = StairsScene.instance()
 	stairs.position = Vector2(x, 2) * cell_size
-	stairs.name = "Stairs"
 	add_child(stairs)
+	move_child(stairs, 4)
 
 
 # Call after room creation to fill the room with a nav polygon instance

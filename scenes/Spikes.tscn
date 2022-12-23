@@ -57,6 +57,7 @@ extents = Vector2( 8, 8 )
 
 [sub_resource type="Animation" id=13]
 length = 0.001
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:texture")
 tracks/0/interp = 1
@@ -97,6 +98,7 @@ tracks/2/keys = {
 [sub_resource type="Animation" id=14]
 resource_name = "pierce"
 length = 2.0
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:frame")
 tracks/0/interp = 1

@@ -7,6 +7,14 @@ onready var sword_hitbox: Area2D = $Sword/Node2D/Sprite/Hitbox
 onready var sword_animation_player = $Sword/SwordAnimationPlayer
 
 
+func _ready() -> void:
+	_restore_previous_state()
+
+
+func _restore_previous_state() -> void:
+	self.hp = SavedData.hp;
+
+
 func _process(_delta: float) -> void:
 	var mouse_direction: Vector2 = (get_global_mouse_position() - get_global_position()).normalized()
 	animated_sprite.flip_h = mouse_direction.x < 0

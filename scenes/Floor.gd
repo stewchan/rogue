@@ -1,19 +1,22 @@
 extends Node2D
 
-var room_scene: PackedScene = preload("res://scenes/Room.tscn")
+var RoomScene: PackedScene = preload("res://scenes/Room.tscn")
 var DoorScene: PackedScene = preload("res://scenes/Door.tscn")
+var Player: PackedScene = preload("res://characters/player/Player.tscn")
 
 export(int) var num_levels: int = 1
 
-onready var player: KinematicBody2D = get_parent().get_node("Player")
 onready var camera: Camera2D = get_parent().get_node("Camera2D")
 
 var cell_size: int = 16
-var num_rooms: int = 3
 
 
-func spawn_rooms() -> void:
-	randomize()
+func build_floor(floor_num: int) -> void:
+	
+	seed(SavedData.seed_val % floor_num * 13)
+	
+	# TODO: change number of rooms based on floor_num
+	var num_rooms = 3
 	var prev_room: Node2D
 	var room: Node2D
 	
@@ -40,10 +43,10 @@ func spawn_rooms() -> void:
 			# warning-ignore:return_value_discarded
 			prev_room.get_node("Doors").get_child(0).connect("opened", room, "spawn_enemies")
 		prev_room = room
-
+	
 	
 func generate_room(room_size: Vector2, start_room: bool = false, end_room: bool = false) -> Node2D:
-	var room = room_scene.instance()
+	var room = RoomScene.instance()
 	add_child(room)
 	room.build(room_size, start_room, end_room)
 	var num_enemies = 1#1 + randi() % 3
@@ -53,12 +56,15 @@ func generate_room(room_size: Vector2, start_room: bool = false, end_room: bool 
 
 func spawn_player(room: Node2D) -> void:
 	var entrance = room.get_node("Entrance").get_child(0)
+	var player = Player.instance()
 	player.position = entrance.position
+	add_child(player)
 	var room_size = room.get_node("MainTilemap").get_used_rect().size - Vector2(2,1)
 	var x = 1 + randi() % int(room_size.x - 1)
 	var y = room_size.y - 2
-	player.position = Vector2(x, y) * cell_size
+#	player.position = Vector2(x, y) * cell_size
 
 
 func on_body_entered_stairs_down(_body: KinematicBody2D) -> void:
-	print("stairs down")
+	SceneTransition.start_transition_to("res://scenes/Game.tscn")
+	SavedData.current_floor += 1

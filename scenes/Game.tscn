@@ -2,7 +2,7 @@
 
 [ext_resource path="res://characters/player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Game.gd" type="Script" id=3]
-[ext_resource path="res://scenes/Rooms.gd" type="Script" id=4]
+[ext_resource path="res://scenes/Dungeon.gd" type="Script" id=4]
 [ext_resource path="res://assets/ui/health_ui.png" type="Texture" id=5]
 [ext_resource path="res://assets/ui/progress_bar.png" type="Texture" id=6]
 [ext_resource path="res://scenes/UI.gd" type="Script" id=7]
@@ -23,7 +23,7 @@ texture_over = ExtResource( 5 )
 texture_progress = ExtResource( 6 )
 tint_progress = Color( 0.607843, 0.0509804, 0.0509804, 1 )
 
-[node name="Rooms" type="Node2D" parent="."]
+[node name="Dungeon" type="Node2D" parent="."]
 script = ExtResource( 4 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
