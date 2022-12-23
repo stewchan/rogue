@@ -20,6 +20,7 @@ onready var bottom_tilemap: TileMap = $BottomTilemap
 onready var furniture_tilemap: TileMap = $FurnitureTilemap
 onready var navpoly_instance: NavigationPolygonInstance = $NavigationPolygonInstance
 onready var traps: Node2D = $Traps
+onready var player_spawn_point = $PlayerSpawnPoint
 
 var room_size: Vector2
 var cell_size: int = 16
@@ -119,11 +120,11 @@ func _create_entrance(start_room: bool) -> void:
 	var y = room_size.y
 	entry_pos.name = "Position2D"
 	entrance.add_child(entry_pos)
-
 	entry_pos.position = Vector2(x, y) * cell_size
-	# If this is a starting room, move player up a couple of cells
+	
+	# If this is a starting room create a spawn point
 	if start_room:
-		entry_pos.position += Vector2(0, -2) * cell_size
+		player_spawn_point.position = entry_pos.position + Vector2(0, -2) * cell_size
 
 	# Remove wall
 	if not start_room:
@@ -177,6 +178,13 @@ func _add_spikes(pos: Vector2) -> void:
 			spikes.position = (pos + vect) * cell_size
 			traps.add_child(spikes)
 	
+
+#func spawn_player(player: Player) -> void:
+#	var entrance = entrance.get_child(0)
+#	add_child(player)
+#	player.position = entrance.position
+#
+
 
 func _add_furniture(_pos: Vector2, _furniture: Vector2) -> void:
 	pass

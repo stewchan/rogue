@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
+[ext_resource path="res://scenes/Floor.gd" type="Script" id=1]
 [ext_resource path="res://characters/player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Game.gd" type="Script" id=3]
 [ext_resource path="res://scenes/Dungeon.gd" type="Script" id=4]
@@ -25,6 +26,9 @@ tint_progress = Color( 0.607843, 0.0509804, 0.0509804, 1 )
 
 [node name="Dungeon" type="Node2D" parent="."]
 script = ExtResource( 4 )
+
+[node name="Floor" type="Node2D" parent="Dungeon"]
+script = ExtResource( 1 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 145, 203 )

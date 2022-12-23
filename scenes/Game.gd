@@ -15,4 +15,5 @@ func _ready() -> void:
 	rng.randomize()
 	SavedData.seed_val = rng.get_seed()
 	var num_floors = 3
-	$Dungeon.build_dungeon(num_floors)
+	dungeon.build_dungeon(num_floors)
+	dungeon.spawn_player()

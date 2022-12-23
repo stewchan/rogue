@@ -12,7 +12,6 @@ var cell_size: int = 16
 
 
 func build_floor(floor_num: int) -> void:
-	
 	seed(SavedData.seed_val % floor_num * 13)
 	
 	# TODO: change number of rooms based on floor_num
@@ -24,7 +23,6 @@ func build_floor(floor_num: int) -> void:
 		var size = Vector2(floor(randi()%6 + 8), floor(randi()%6 + 8))
 		if i == 0:
 			room = generate_room(size, true, false) # starting room
-			spawn_player(room)
 		elif i == num_rooms - 1:
 			room = 	generate_room(size, false, true) # end room
 			# warning-ignore:return_value_discarded
@@ -52,17 +50,6 @@ func generate_room(room_size: Vector2, start_room: bool = false, end_room: bool 
 	var num_enemies = 1#1 + randi() % 3
 	room.add_enemies(num_enemies)
 	return room
-	
-
-func spawn_player(room: Node2D) -> void:
-	var entrance = room.get_node("Entrance").get_child(0)
-	var player = Player.instance()
-	player.position = entrance.position
-	add_child(player)
-	var room_size = room.get_node("MainTilemap").get_used_rect().size - Vector2(2,1)
-	var x = 1 + randi() % int(room_size.x - 1)
-	var y = room_size.y - 2
-#	player.position = Vector2(x, y) * cell_size
 
 
 func on_body_entered_stairs_down(_body: KinematicBody2D) -> void:
