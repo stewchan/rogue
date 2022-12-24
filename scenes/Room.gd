@@ -115,16 +115,14 @@ func _create_stairs_down() -> void:
 	var stairs = StairScene.instance()
 	$Stairs.add_child(stairs)
 	stairs.name = "StairsDown"
-	var x = 1 + randi() % int(room_size.x - 2)
-	stairs.position = Vector2(x, 2) * cell_size
+	stairs.position = Vector2(room_size.x - 1, 2) * cell_size
 
 
 func _create_stairs_up() -> void:
 	var stairs = StairScene.instance()
 	$Stairs.add_child(stairs)
 	stairs.name = "StairsUp"
-	var x = room_size.x - 1
-	stairs.position = Vector2(x, room_size.y - 2) * cell_size
+	stairs.position = Vector2(room_size.x - 1, room_size.y - 2) * cell_size
 
 
 func set_player_spawn_point(descending: bool = true) -> void:
@@ -132,9 +130,9 @@ func set_player_spawn_point(descending: bool = true) -> void:
 	spawn_point.name = "PlayerSpawnPoint"
 	add_child(spawn_point)
 	if descending:
-		spawn_point.position = Vector2(2, room_size.y - 2) * cell_size
+		spawn_point.position = Vector2(room_size.x/2, room_size.y - 2) * cell_size
 	else:
-		spawn_point.position = Vector2(room_size.x - 1, 2) * cell_size
+		spawn_point.position = Vector2(room_size.x/2, 2) * cell_size
 	
 
 # Call after room creation to fill the room with a nav polygon instance

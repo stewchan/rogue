@@ -29,6 +29,8 @@ script = ExtResource( 4 )
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 145, 203 )
 hp = 4
+acceleration = 50
+max_speed = 200
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

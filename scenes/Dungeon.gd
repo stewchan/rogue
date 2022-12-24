@@ -2,6 +2,7 @@ extends Node2D
 
 var StairsScene: PackedScene = preload("res://scenes/Stairs.tscn")
 var FloorScene: PackedScene = preload("res://scenes/Floor.tscn")
+var SceneTransition: PackedScene = preload("res://autoloads/SceneTransition.tscn")
 
 onready var player: KinematicBody2D = get_parent().get_node("Player")
 onready var camera: Camera2D = get_parent().get_node("Camera2D")
@@ -22,6 +23,8 @@ func build_dungeon(num_floors: int) -> void:
 
 func ascend() -> void:
 	if SavedData.current_floor >= 2:
+		add_child(SceneTransition.instance())
+		yield(get_tree().create_timer(0.3), "timeout")
 		SavedData.current_floor -= 1
 		rebuild_floor(SavedData.current_floor, true)
 		var last_room = current_floor.get_children().pop_back()
@@ -31,6 +34,8 @@ func ascend() -> void:
 
 func descend() -> void:
 	if SavedData.current_floor < max_floors:
+		add_child(SceneTransition.instance())
+		yield(get_tree().create_timer(0.3), "timeout")
 		SavedData.current_floor += 1
 		rebuild_floor(SavedData.current_floor)
 		var first_room = current_floor.get_children().pop_front()

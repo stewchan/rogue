@@ -5,6 +5,8 @@ var DoorScene: PackedScene = preload("res://scenes/Door.tscn")
 
 var cell_size: int = 16
 
+var rooms: Array = []
+
 
 func clear() -> void:
 	for n in get_children():
@@ -26,23 +28,25 @@ func build_floor(floor_num: int) -> void:
 			room = generate_room(size, true, false) # starting room
 		elif i == num_rooms - 1:
 			room = 	generate_room(size, false, true) # end room
+			var num_enemies = 1#1 + randi() % 3
+			room.add_enemies(num_enemies)
 		else:
 			room = 	generate_room(size) # regular room
+			var num_enemies = 1#1 + randi() % 3
+			room.add_enemies(num_enemies)
 		room.name = "Room" + str(i)
 		room.z_index = -i
 		room.spawn_enemies()
-		if prev_room:
-			var door_pos = prev_room.get_node("Doors").get_child(0).global_position
+		rooms.push_back(room)
+		if i != 0:
+			var door_pos = rooms[i-1].get_node("Doors").get_child(0).global_position
 			var entrance_pos = room.get_node("Entrance").get_child(0).global_position
 			room.position.x += door_pos.x - entrance_pos.x
-			room.position.y =  prev_room.position.y - size.y * cell_size 
+			room.position.y =  rooms[i-1].position.y - size.y * cell_size 
 			
 			# warning-ignore:return_value_discarded
-			prev_room.get_node("Doors").get_child(0).connect("opened", room, "spawn_enemies")
-		prev_room = room
+			rooms[i-1].get_node("Doors").get_child(0).connect("opened", room, "spawn_enemies")
 	
-	
-
 
 func set_player_spawn(player: KinematicBody2D, descending: bool):
 	var room: Node2D
@@ -58,8 +62,6 @@ func generate_room(room_size: Vector2, start_room: bool = false, end_room: bool 
 	var room = RoomScene.instance()
 	add_child(room)
 	room.build(room_size, start_room, end_room)
-	var num_enemies = 1#1 + randi() % 3
-	room.add_enemies(num_enemies)
 	return room
 
 
