@@ -26,6 +26,7 @@ func ascend() -> void:
 		rebuild_floor(SavedData.current_floor, true)
 		var last_room = current_floor.get_children().pop_back()
 		last_room.set_player_spawn_point(false)
+		_spawn_player(player, false)
 
 
 func descend() -> void:
@@ -34,7 +35,8 @@ func descend() -> void:
 		rebuild_floor(SavedData.current_floor)
 		var first_room = current_floor.get_children().pop_front()
 		first_room.set_player_spawn_point(true)
-
+		_spawn_player(player, true)
+		
 
 func rebuild_floor(floor_num: int, descending: bool = true) -> void:
 	previous_floor = current_floor
@@ -43,11 +45,15 @@ func rebuild_floor(floor_num: int, descending: bool = true) -> void:
 	add_child(current_floor)
 	current_floor.build_floor(floor_num)
 	_connect_stairs()
-	_spawn_player(player, descending)
 	
+	# Remove stairs at top and bottom of dungeon
+	if floor_num == 1:
+		var room = current_floor.get_children().pop_front()
+		room.get_node("Stairs/StairsUp").queue_free()
 	if floor_num == max_floors:
-		pass
-#		current_floor.get_children().pop_back()
+		var room = current_floor.get_children().pop_back()
+		room.get_node("Stairs/StairsDown").queue_free()
+	
 	if previous_floor:
 		previous_floor.queue_free()
 	

@@ -3,8 +3,6 @@ extends Node2D
 var RoomScene: PackedScene = preload("res://scenes/Room.tscn")
 var DoorScene: PackedScene = preload("res://scenes/Door.tscn")
 
-export(int) var num_levels: int = 1
-
 var cell_size: int = 16
 
 
@@ -28,8 +26,6 @@ func build_floor(floor_num: int) -> void:
 			room = generate_room(size, true, false) # starting room
 		elif i == num_rooms - 1:
 			room = 	generate_room(size, false, true) # end room
-			# warning-ignore:return_value_discarded
-#			room.get_node("Stairs").connect("body_entered", get_parent(), "descend")
 		else:
 			room = 	generate_room(size) # regular room
 		room.name = "Room" + str(i)
@@ -44,6 +40,8 @@ func build_floor(floor_num: int) -> void:
 			# warning-ignore:return_value_discarded
 			prev_room.get_node("Doors").get_child(0).connect("opened", room, "spawn_enemies")
 		prev_room = room
+	
+	
 
 
 func set_player_spawn(player: KinematicBody2D, descending: bool):
@@ -53,7 +51,7 @@ func set_player_spawn(player: KinematicBody2D, descending: bool):
 	else:
 		room = get_children().pop_back()
 	room.set_player_spawn_point(descending)
-	player.position = room.get_node("PlayerSpawnPoint").position
+	player.global_position = room.get_node("PlayerSpawnPoint").global_position
 
 	
 func generate_room(room_size: Vector2, start_room: bool = false, end_room: bool = false) -> Node2D:
