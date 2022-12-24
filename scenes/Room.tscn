@@ -31,9 +31,7 @@ format = 1
 
 [node name="Entrance" type="Node2D" parent="."]
 
-[node name="PlayerSpawnPoint" type="Position2D" parent="."]
-
-[node name="StairSpawnPoint" type="Position2D" parent="."]
+[node name="Stairs" type="Node2D" parent="."]
 
 [node name="Traps" type="Node2D" parent="."]
 

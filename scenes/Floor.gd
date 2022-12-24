@@ -18,7 +18,7 @@ func build_floor(floor_num: int) -> void:
 	seed(SavedData.seed_val % floor_num * 13)
 	
 	# TODO: change number of rooms based on floor_num
-	var num_rooms = 3
+	var num_rooms = 2
 	var prev_room: Node2D
 	var room: Node2D
 	
@@ -44,7 +44,17 @@ func build_floor(floor_num: int) -> void:
 			# warning-ignore:return_value_discarded
 			prev_room.get_node("Doors").get_child(0).connect("opened", room, "spawn_enemies")
 		prev_room = room
-	
+
+
+func set_player_spawn(player: KinematicBody2D, descending: bool):
+	var room: Node2D
+	if descending:
+		room = get_children().pop_front()
+	else:
+		room = get_children().pop_back()
+	room.set_player_spawn_point(descending)
+	player.position = room.get_node("PlayerSpawnPoint").position
+
 	
 func generate_room(room_size: Vector2, start_room: bool = false, end_room: bool = false) -> Node2D:
 	var room = RoomScene.instance()
