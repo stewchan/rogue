@@ -50,7 +50,6 @@ config/icon="res://icon.png"
 
 [autoload]
 
-SceneTransition="*res://autoloads/SceneTransition.tscn"
 SavedData="*res://autoloads/SavedData.gd"
 
 [display]

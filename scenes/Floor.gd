@@ -29,7 +29,7 @@ func build_floor(floor_num: int) -> void:
 		elif i == num_rooms - 1:
 			room = 	generate_room(size, false, true) # end room
 			# warning-ignore:return_value_discarded
-			room.get_node("Stairs").connect("body_entered", get_parent(), "descend")
+#			room.get_node("Stairs").connect("body_entered", get_parent(), "descend")
 		else:
 			room = 	generate_room(size) # regular room
 		room.name = "Room" + str(i)
@@ -55,6 +55,3 @@ func generate_room(room_size: Vector2, start_room: bool = false, end_room: bool 
 	return room
 
 
-func on_body_entered_stairs_down(_body: KinematicBody2D) -> void:
-	emit_signal("descend")
-	SceneTransition.start_transition()
