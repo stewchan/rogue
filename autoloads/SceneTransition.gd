@@ -13,5 +13,5 @@ func change_scene() -> void:
 	print("Changed scenes")
 
 
-func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
+func _on_AnimationPlayer_animation_finished(_anim_name: String) -> void:
 	queue_free()

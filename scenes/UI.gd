@@ -2,11 +2,10 @@ extends CanvasLayer
 
 const MIN_HEALTH_OFFSET: int = 23
 
+var max_hp: float = 4.0
+
 onready var player: KinematicBody2D = get_parent().get_node("Player")
 onready var health_bar: TextureProgress = $HealthBar
-
-
-var max_hp: float = 4.0
 
 
 func _ready() -> void:
@@ -15,8 +14,10 @@ func _ready() -> void:
 
 
 func _update_health_bar(new_value: int) -> void:
+	# TODO: use sceneTreeTween
 	var tween = Tween.new()
-	tween.interpolate_property(health_bar, "value", health_bar.value, new_value, 0.5, Tween.TRANS_QUINT, Tween.EASE_OUT)
+	tween.interpolate_property(health_bar, "value", health_bar.value, new_value, 0.5,
+		Tween.TRANS_QUINT, Tween.EASE_OUT)
 	add_child(tween)
 	tween.start()
 

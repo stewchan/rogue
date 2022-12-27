@@ -10,7 +10,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	set_state(states.move)
-	
+
 
 func _state_logic(_delta: float) -> void:
 	if state == states.move:
