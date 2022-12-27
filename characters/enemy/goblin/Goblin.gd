@@ -1,17 +1,18 @@
 extends Enemy
 
-const ThrowableKnifeScene: PackedScene = preload("res://characters/enemy/goblin/ThrowableKnife.tscn")
+const ThrowableKnifeScene: PackedScene =preload(
+	"res://characters/enemy/goblin/ThrowableKnife.tscn")
 
 const MAX_DISTANCE_TO_PLAYER: int = 90
 const MIN_DISTANCE_TO_PLAYER: int = 40
 
 export(int) var projectile_speed: int = 150
 
-onready var attack_timer = $AttackTimer
-onready var aim_raycast = $AimRayCast
-
 var can_attack: bool = true
 var distance_to_player: float
+
+onready var attack_timer = $AttackTimer
+onready var aim_raycast = $AimRayCast
 
 
 func _physics_process(_delta: float) -> void:
@@ -19,7 +20,7 @@ func _physics_process(_delta: float) -> void:
 		distance_to_player = (global_position - player.global_position).length()
 	if nav_agent.is_target_reachable():
 		move_direction = position.direction_to(nav_agent.get_next_location())
-	
+
 
 func chase() -> void:
 	if weakref(player).get_ref():
@@ -46,7 +47,8 @@ func _get_retreat_target() -> Vector2:
 
 func _throw_knife() -> void:
 	var projectile: Area2D = ThrowableKnifeScene.instance()
-	projectile.launch(global_position, (player.position - global_position).normalized(), projectile_speed)
+	var throw_direction = (player.position - global_position).normalized()
+	projectile.launch(global_position, throw_direction, projectile_speed)
 	get_tree().current_scene.add_child(projectile)
 
 

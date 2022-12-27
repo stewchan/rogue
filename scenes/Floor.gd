@@ -16,12 +16,11 @@ func clear() -> void:
 
 func build_floor(floor_num: int) -> void:
 	seed(SavedData.seed_val % floor_num * 13)
-	
+
 	# TODO: change number of rooms based on floor_num
 	var num_rooms = 2
-	var prev_room: Node2D
 	var room: Node2D
-	
+
 	for i in range(0, num_rooms):
 		var size = Vector2(floor(randi()%6 + 8), floor(randi()%6 + 8))
 		if i == 0:
@@ -42,11 +41,11 @@ func build_floor(floor_num: int) -> void:
 			var door_pos = rooms[i-1].get_node("Doors").get_child(0).global_position
 			var entrance_pos = room.get_node("Entrance").get_child(0).global_position
 			room.position.x += door_pos.x - entrance_pos.x
-			room.position.y =  rooms[i-1].position.y - size.y * cell_size 
-			
+			room.position.y =  rooms[i-1].position.y - size.y * cell_size
+
 			# warning-ignore:return_value_discarded
 			rooms[i-1].get_node("Doors").get_child(0).connect("opened", room, "spawn_enemies")
-	
+
 
 func set_player_spawn(player: KinematicBody2D, descending: bool):
 	var room: Node2D
@@ -57,7 +56,7 @@ func set_player_spawn(player: KinematicBody2D, descending: bool):
 	room.set_player_spawn_point(descending)
 	player.global_position = room.get_node("PlayerSpawnPoint").global_position
 
-	
+
 func generate_room(room_size: Vector2, start_room: bool = false, end_room: bool = false) -> Node2D:
 	var room = RoomScene.instance()
 	add_child(room)

@@ -4,15 +4,13 @@ var StairsScene: PackedScene = preload("res://scenes/Stairs.tscn")
 var FloorScene: PackedScene = preload("res://scenes/Floor.tscn")
 var SceneTransition: PackedScene = preload("res://autoloads/SceneTransition.tscn")
 
-onready var player: KinematicBody2D = get_parent().get_node("Player")
-onready var camera: Camera2D = get_parent().get_node("Camera2D")
-
 var cell_size: int = 16
-
 var max_floors: int = 3
-
 var current_floor: Node2D
 var previous_floor: Node2D
+
+onready var player: KinematicBody2D = get_parent().get_node("Player")
+onready var camera: Camera2D = get_parent().get_node("Camera2D")
 
 
 # Build a dungeon with the given number of floors
@@ -26,10 +24,10 @@ func ascend() -> void:
 		add_child(SceneTransition.instance())
 		yield(get_tree().create_timer(0.3), "timeout")
 		SavedData.current_floor -= 1
-		rebuild_floor(SavedData.current_floor, true)
+		rebuild_floor(SavedData.current_floor)
 		var last_room = current_floor.get_children().pop_back()
 		last_room.set_player_spawn_point(false)
-		_spawn_player(player, false)
+		_spawn_player(false)
 
 
 func descend() -> void:
@@ -40,17 +38,17 @@ func descend() -> void:
 		rebuild_floor(SavedData.current_floor)
 		var first_room = current_floor.get_children().pop_front()
 		first_room.set_player_spawn_point(true)
-		_spawn_player(player, true)
-		
+		_spawn_player(true)
 
-func rebuild_floor(floor_num: int, descending: bool = true) -> void:
+
+func rebuild_floor(floor_num: int) -> void:
 	previous_floor = current_floor
 	current_floor = FloorScene.instance()
 	current_floor.name = "Floor" + str(floor_num)
 	add_child(current_floor)
 	current_floor.build_floor(floor_num)
 	_connect_stairs()
-	
+
 	# Remove stairs at top and bottom of dungeon
 	if floor_num == 1:
 		var room = current_floor.get_children().pop_front()
@@ -58,10 +56,10 @@ func rebuild_floor(floor_num: int, descending: bool = true) -> void:
 	if floor_num == max_floors:
 		var room = current_floor.get_children().pop_back()
 		room.get_node("Stairs/StairsDown").queue_free()
-	
+
 	if previous_floor:
 		previous_floor.queue_free()
-	
+
 
 func _connect_stairs() -> void:
 	for room in current_floor.get_children():
@@ -73,7 +71,7 @@ func _connect_stairs() -> void:
 					stairs.connect("stairs_entered", self, "ascend")
 
 
-func _spawn_player(player, descending: bool = true) -> void:
+func _spawn_player(descending: bool = true) -> void:
 	current_floor.set_player_spawn(player, descending)
 
 

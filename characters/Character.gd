@@ -1,24 +1,22 @@
 class_name Character, "res://assets/heroes/knight/knight_idle_anim_f0.png"
 extends KinematicBody2D
 
+signal hp_changed(new_hp)
 
 const FRICTION : float = 20.0
 
 export(int) var max_hp: int = 2
 export(int) var hp: int = 2 setget set_hp
-
 export(int) var acceleration : int = 40
 export(int) var max_speed : int = 100
 export(bool) var flying: bool = false
 
-signal hp_changed(new_hp)
-
-onready var state_machine: Node = $FiniteStateMachine
-onready var animated_sprite: AnimatedSprite = $AnimatedSprite
-
 var move_direction: Vector2 = Vector2.ZERO
 var velocity: Vector2 = Vector2.ZERO
 var immune: bool = false
+
+onready var state_machine: Node = $FiniteStateMachine
+onready var animated_sprite: AnimatedSprite = $AnimatedSprite
 
 
 func _physics_process(delta: float) -> void:
@@ -36,7 +34,6 @@ func take_damage(damage: int, dir: Vector2, force: int) -> void:
 	if(immune):
 		return
 	immune = true
-	
 	self.hp -= damage
 	if name == "Player":
 		SavedData.hp = hp
@@ -46,7 +43,7 @@ func take_damage(damage: int, dir: Vector2, force: int) -> void:
 	else:
 		state_machine.set_state(state_machine.states.dead)
 		velocity += dir * force * 2
-	
+
 	yield(get_tree().create_timer(0.5), "timeout")
 	immune = false
 

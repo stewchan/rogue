@@ -10,6 +10,10 @@ var DoorScene: PackedScene = preload("res://scenes/Door.tscn")
 var SpikeScene: PackedScene = preload("res://scenes/Spikes.tscn")
 var StairScene: PackedScene = preload("res://scenes/Stairs.tscn")
 
+var room_size: Vector2
+var cell_size: int = 16
+
+
 onready var entrance: Node2D = $Entrance
 onready var doors: Node2D = $Doors
 onready var enemy_positions: Node2D = $EnemyPositions
@@ -24,8 +28,7 @@ onready var player_spawn_point = $PlayerSpawnPoint
 onready var stair_down_spawn_point = $Stairs/StairDownSpawnPoint
 onready var stair_up_spawn_point = $Stairs/StairUpSpawnPoint
 
-var room_size: Vector2
-var cell_size: int = 16
+
 
 
 func _open_doors() -> void:
@@ -75,10 +78,14 @@ func _create_floors_and_walls() -> void:
 	for x in range(0, room_size.x):	# Bottom wall
 		bottom_tilemap.set_cell(x, int(room_size.y)-1, 6, false, false, false, Vector2(1,2))
 	# Create Corners
-	main_tilemap.set_cell(-1, -1, 6, false, false, false, Vector2(0,4))	# Top left
-	main_tilemap.set_cell(int(room_size.x), -1, 6, false, false, false, Vector2(1,4)) # Top right
-	bottom_tilemap.set_cell(-1, int(room_size.y)-1, 6, false, false, false, Vector2(1,1))	# Bottom left
-	bottom_tilemap.set_cell(int(room_size.x), int(room_size.y)-1, 6, false, false, false, Vector2(2,1)) # Bottom right
+	# Top left
+	main_tilemap.set_cell(-1, -1, 6, false, false, false, Vector2(0,4))
+	# Top right
+	main_tilemap.set_cell(int(room_size.x), -1, 6, false, false, false, Vector2(1,4))
+	# Bottom left
+	bottom_tilemap.set_cell(-1, int(room_size.y)-1, 6, false, false, false, Vector2(1,1))
+	# Bottom right
+	bottom_tilemap.set_cell(int(room_size.x), int(room_size.y)-1, 6, false, false, false, Vector2(2,1))
 	# Create navpoly for the entire room
 #	var rect = main_tilemap.get_used_rect()
 #	_create_navpoly_instance(rect)
@@ -94,7 +101,7 @@ func _create_entrance() -> void:
 	entry_pos.position = Vector2(x, y) * cell_size
 	bottom_tilemap.set_cell(x, int(room_size.y)-1, -1)
 	bottom_tilemap.set_cell(x-1, int(room_size.y)-1, -1)
-	
+
 
 func _create_door() -> void:
 	var	x = int(room_size.x/4) + randi() % int(room_size.x/2)
@@ -133,12 +140,14 @@ func set_player_spawn_point(descending: bool = true) -> void:
 		spawn_point.position = Vector2(room_size.x/2, room_size.y - 2) * cell_size
 	else:
 		spawn_point.position = Vector2(room_size.x/2, 2) * cell_size
-	
+
 
 # Call after room creation to fill the room with a nav polygon instance
 func _create_navpoly_instance(rect: Rect2) -> void:
 	var polygon = NavigationPolygon.new()
-	var outline = PoolVector2Array([Vector2(0,0), Vector2(rect.end.x, 0), rect.end, Vector2(0, rect.end.y)])
+	var outline = PoolVector2Array(
+		[Vector2(0,0), Vector2(rect.end.x, 0), rect.end, Vector2(0, rect.end.y)]
+	)
 	polygon.add_outline(outline)
 	polygon.make_polygons_from_outlines()
 	navpoly_instance.navpoly = polygon
@@ -153,7 +162,7 @@ func _add_spikes(pos: Vector2) -> void:
 			var spikes = SpikeScene.instance()
 			spikes.position = (pos + vect) * cell_size
 			traps.add_child(spikes)
-	
+
 func add_enemies(num_enemies: int) -> void:
 	for _i in range(0, num_enemies):
 		var enemy = Position2D.new()
@@ -161,8 +170,8 @@ func add_enemies(num_enemies: int) -> void:
 		var y = (1 + randi() % int(room_size.y/2)) * cell_size
 		enemy.position = Vector2(x, y)
 		enemy_positions.add_child(enemy)
-		
-		
+
+
 func spawn_enemies() -> void:
 	for enemy_pos in enemy_positions.get_children():
 		var enemy: KinematicBody2D = ENEMY_SCENES.Goblin.instance()

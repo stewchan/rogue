@@ -20,7 +20,7 @@ func _enter_state(_previous_state: int, _new_state: int) -> void:
 
 func _exit_state(_state_exited: int) -> void:
 	pass
-	
+
 
 func _physics_process(delta: float) -> void:
 	if state != -1:
@@ -32,8 +32,8 @@ func _physics_process(delta: float) -> void:
 
 func _add_state(new_state: String) -> void:
 	states[new_state] = states.size()
-	
-	
+
+
 func set_state(new_state: int) -> void:
 	_exit_state(state)
 	previous_state = state

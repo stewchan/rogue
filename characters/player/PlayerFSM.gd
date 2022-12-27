@@ -30,7 +30,7 @@ func _get_transition() -> int:
 			if not animation_player.is_playing():
 				return states.idle
 	return -1
-			
+
 
 func _enter_state(_previous_state: int, _new_state: int) -> void:
 	match _new_state:
@@ -42,5 +42,3 @@ func _enter_state(_previous_state: int, _new_state: int) -> void:
 			animation_player.play("hurt")
 		states.dead:
 			animation_player.play("dead")
-		
-			

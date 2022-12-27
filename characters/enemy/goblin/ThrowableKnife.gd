@@ -11,7 +11,6 @@ func launch(initial_position: Vector2, dir: Vector2, speed: int) -> void:
 	direction = dir
 	knockback_direction = dir
 	knife_speed = speed
-	
 	rotation += dir.angle() + PI/4
 
 
