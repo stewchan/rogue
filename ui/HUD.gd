@@ -3,7 +3,7 @@ extends CanvasLayer
 const MIN_HEALTH_OFFSET: int = 23
 
 onready var player: KinematicBody2D = get_parent().get_node("Player")
-onready var health_bar: TextureProgress = $HealthBar
+onready var health_bar: TextureProgress = $M/H/HealthBar
 
 
 var max_hp: float = 4.0

@@ -285,7 +285,6 @@ tracks/1/keys = {
 collision_mask = 3
 script = ExtResource( 5 )
 acceleration = 30
-max_speed = 60
 projectile_speed = 150
 
 [node name="FiniteStateMachine" parent="." index="0"]
