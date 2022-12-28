@@ -10,7 +10,7 @@ func _ready() -> void:
 
 
 func change_scene() -> void:
-	print("Changed scenes")
+	print("Scene transition complete")
 
 
 func _on_AnimationPlayer_animation_finished(_anim_name: String) -> void:

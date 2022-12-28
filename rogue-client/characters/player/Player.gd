@@ -12,7 +12,7 @@ func _ready() -> void:
 
 
 func _restore_previous_state() -> void:
-	self.hp = SavedData.hp;
+	self.hp = GameData.hp;
 
 
 func _process(_delta: float) -> void:

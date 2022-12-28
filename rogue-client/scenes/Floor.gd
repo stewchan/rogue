@@ -15,7 +15,7 @@ func clear() -> void:
 
 
 func build_floor(floor_num: int) -> void:
-	seed(SavedData.seed_val % floor_num * 13)
+	seed(GameData.seed_val % floor_num * 13)
 
 	# TODO: change number of rooms based on floor_num
 	var num_rooms = 2

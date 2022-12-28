@@ -20,25 +20,27 @@ func build_dungeon(num_floors: int) -> void:
 
 
 func ascend() -> void:
-	if SavedData.current_floor >= 2:
-		add_child(SceneTransition.instance())
-		yield(get_tree().create_timer(0.3), "timeout")
-		SavedData.current_floor -= 1
-		rebuild_floor(SavedData.current_floor)
-		var last_room = current_floor.get_children().pop_back()
-		last_room.set_player_spawn_point(false)
-		_spawn_player(false)
+	if GameData.current_floor <= 1:
+		return
+	add_child(SceneTransition.instance())
+	yield(get_tree().create_timer(0.3), "timeout")
+	GameData.data.current_floor -= 1
+	rebuild_floor(GameData.current_floor)
+	var last_room = current_floor.get_children().pop_back()
+	last_room.set_player_spawn_point(false)
+	_spawn_player(false)
 
 
 func descend() -> void:
-	if SavedData.current_floor < max_floors:
-		add_child(SceneTransition.instance())
-		yield(get_tree().create_timer(0.3), "timeout")
-		SavedData.current_floor += 1
-		rebuild_floor(SavedData.current_floor)
-		var first_room = current_floor.get_children().pop_front()
-		first_room.set_player_spawn_point(true)
-		_spawn_player(true)
+	if GameData.current_floor == max_floors:
+		return
+	add_child(SceneTransition.instance())
+	yield(get_tree().create_timer(0.3), "timeout")
+	GameData.current_floor += 1
+	rebuild_floor(GameData.current_floor)
+	var first_room = current_floor.get_children().pop_front()
+	first_room.set_player_spawn_point(true)
+	_spawn_player(true)
 
 
 func rebuild_floor(floor_num: int) -> void:
@@ -73,6 +75,8 @@ func _connect_stairs() -> void:
 
 func _spawn_player(descending: bool = true) -> void:
 	current_floor.set_player_spawn(player, descending)
+	GameData.position = player.global_position
+	Network.req_update()
 
 
 
