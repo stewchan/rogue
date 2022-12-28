@@ -15,6 +15,7 @@ func _restore_previous_state() -> void:
 	self.hp = GameData.hp;
 
 
+
 func _process(_delta: float) -> void:
 	var mouse_direction: Vector2 = (get_global_mouse_position() - get_global_position()).normalized()
 	animated_sprite.flip_h = mouse_direction.x < 0

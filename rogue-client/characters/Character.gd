@@ -28,6 +28,8 @@ func move() -> void:
 	move_direction = move_direction.normalized()
 	velocity += move_direction * acceleration
 	velocity = velocity.limit_length(max_speed)
+	if name == "Player":
+		GameData.position = global_position
 
 
 func take_damage(damage: int, dir: Vector2, force: int) -> void:

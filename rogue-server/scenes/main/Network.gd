@@ -39,8 +39,7 @@ func _on_peer_disconnected(id: int) -> void:
 remote func req_update(json: String) -> void:
 	var pid = get_tree().get_rpc_sender_id()
 	var info = str2var(json)
-	print(info)
 	players[pid] = info
-
+	
 	# Update all clients with new player info
-	rpc("update_puppet", pid, info)
+	rpc("update_puppet", pid, json)
