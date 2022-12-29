@@ -6,11 +6,12 @@ var ip: String = "127.0.0.1"
 var port: int = 1900
 var is_connected: bool = false
 
+
 var players = {}
 
 
-func _ready() -> void:
-	connect_to_server()
+export(PackedScene) var PlayerScene
+export(int) var speed
 
 
 func connect_to_server() -> void:
@@ -45,11 +46,12 @@ func _on_server_disconnected() -> void:
 
 # Send a request to server to update current player info
 func req_update() -> void:
-	if is_connected:
-		# Convert data to json
-		var json = var2str(GameData.data)
-		# Send request to server
-		rpc_id(1, "req_update", json)
+	if not is_connected:
+		return
+	# Convert data to json
+	var json = var2str(GameData.data)
+	# Send request to server
+	rpc_id(1, "req_update", json)
 	
 
 # To be called by server to update remote player info
@@ -60,5 +62,9 @@ remote func update_puppet(pid: int, json: String) -> void:
 	# Don't update self
 	if pid == get_tree().get_network_unique_id():
 		return
+	
+	# Create new puppet
+	if not players[pid]:
+		pass
 	players[pid] = str2var(json)
 	print("Updated player: " + players[pid])

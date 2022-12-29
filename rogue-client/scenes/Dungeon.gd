@@ -2,7 +2,7 @@ extends Node2D
 
 var StairsScene: PackedScene = preload("res://scenes/Stairs.tscn")
 var FloorScene: PackedScene = preload("res://scenes/Floor.tscn")
-var SceneTransition: PackedScene = preload("res://autoloads/SceneTransition.tscn")
+var SceneTransition: PackedScene = preload("res://scenes/SceneTransition.tscn")
 
 var cell_size: int = 16
 var max_floors: int = 3
@@ -76,7 +76,6 @@ func _connect_stairs() -> void:
 func _spawn_player(descending: bool = true) -> void:
 	current_floor.set_player_spawn(player, descending)
 	GameData.position = player.global_position
-#	Network.req_update()
 
 
 

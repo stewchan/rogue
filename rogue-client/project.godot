@@ -50,8 +50,8 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Network="*res://scenes/main/Network.gd"
-GameData="*res://autoloads/GameData.gd"
+GameData="*res://network/GameData.tscn"
+Network="*res://network/Network.tscn"
 
 [display]
 

@@ -11,13 +11,13 @@ config_version=4
 [application]
 
 config/name="rogue-server"
-run/main_scene="res://scenes/main/Network.tscn"
+run/main_scene="res://network/Network.tscn"
 config/icon="res://icon.png"
 
 [display]
 
-window/size/width=400
-window/size/height=400
+window/size/width=500
+window/size/height=700
 
 [gui]
 
