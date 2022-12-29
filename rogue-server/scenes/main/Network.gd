@@ -1,6 +1,6 @@
 extends Node
 
-var network: NetworkedMultiplayerENet
+var peer: NetworkedMultiplayerENet
 var port = 1900
 var max_players = 4
 
@@ -14,20 +14,19 @@ func _ready() -> void:
 
 
 func start_server() -> void:
-  network = NetworkedMultiplayerENet.new()
-  network.create_server(port, max_players)
-  get_tree().set_network_peer(network)
+  peer = NetworkedMultiplayerENet.new()
+  peer.create_server(port, max_players)
+  get_tree().set_network_peer(peer)
   print("Server started on port: " + str(port))
 
-  network.connect("peer_connected", self, "_on_peer_connected")
-  network.connect("peer_disconnected", self, "_on_peer_disconnected")
+  peer.connect("peer_connected", self, "_on_peer_connected")
+  peer.connect("peer_disconnected", self, "_on_peer_disconnected")
 
 
 func _on_peer_connected(id: int) -> void:
-  print("Peer connected: " + str(id))
-  # get player name from client
-  
-  players[id] = {"id": id, "name": "Player " + str(id)}
+	print("Peer connected: " + str(id))
+	# get player name from client
+	players[id] = {"id": id, "name": "Player " + str(id)}
 
 
 func _on_peer_disconnected(id: int) -> void:

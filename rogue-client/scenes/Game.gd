@@ -4,6 +4,7 @@ extends Node2D
 onready var dungeon = $Dungeon
 onready var player = $Player
 onready var hud = $HUD
+onready var network = $Network
 
 
 func _ready() -> void:

@@ -76,7 +76,7 @@ func _connect_stairs() -> void:
 func _spawn_player(descending: bool = true) -> void:
 	current_floor.set_player_spawn(player, descending)
 	GameData.position = player.global_position
-	Network.req_update()
+#	Network.req_update()
 
 
 

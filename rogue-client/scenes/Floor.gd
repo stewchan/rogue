@@ -1,5 +1,6 @@
 extends Node2D
 
+
 var RoomScene: PackedScene = preload("res://scenes/Room.tscn")
 var DoorScene: PackedScene = preload("res://scenes/Door.tscn")
 
@@ -45,6 +46,7 @@ func build_floor(floor_num: int) -> void:
 
 			# warning-ignore:return_value_discarded
 			rooms[i-1].get_node("Doors").get_child(0).connect("opened", room, "spawn_enemies")
+
 
 
 func set_player_spawn(player: KinematicBody2D, descending: bool):

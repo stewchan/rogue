@@ -24,11 +24,6 @@ onready var bottom_tilemap: TileMap = $BottomTilemap
 onready var furniture_tilemap: TileMap = $FurnitureTilemap
 onready var navpoly_instance: NavigationPolygonInstance = $NavigationPolygonInstance
 onready var traps: Node2D = $Traps
-onready var player_spawn_point = $PlayerSpawnPoint
-onready var stair_down_spawn_point = $Stairs/StairDownSpawnPoint
-onready var stair_up_spawn_point = $Stairs/StairUpSpawnPoint
-
-
 
 
 func _open_doors() -> void:
