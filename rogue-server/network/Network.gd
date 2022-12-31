@@ -44,9 +44,10 @@ func _on_peer_disconnected(id: int) -> void:
 # Called by client to update their info
 remote func req_update(json: String) -> void:
 	var pid = get_tree().get_rpc_sender_id()
-	var info = str2var(json)
-	players[pid] = info
-	
+	assert(pid != 1, "Error: player update was incorrectly requested by a call from the server")
+	var data = str2var(json)
+	# Store server copy of player data
+	players[pid] = data
 	# Update all clients with new player info
 	rpc("update_puppet", pid, json)
 

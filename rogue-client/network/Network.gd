@@ -7,18 +7,24 @@ var port: int = 1900
 var is_connected: bool = false
 
 
-var players = {}
+var puppets = {}
 
+# The data to be sent by rpc
+var pdata = {
+	"hp": 0,
+	"name": "Player",
+	"position": Vector2.ZERO
+}
 
-export(PackedScene) var PlayerScene
-export(int) var speed
+export(PackedScene) var PuppetPlayerScene
 
 
 func connect_to_server() -> void:
 	peer = NetworkedMultiplayerENet.new()
 	var _err = peer.create_client(ip, port)
 	print("Create client code: " + str(_err))
-	get_tree().network_peer = peer
+	get_tree().set_network_peer(peer)
+
 	# warning-ignore:return_value_discarded
 	get_tree().connect("connected_to_server", self, "_on_connected_to_server")
 	# warning-ignore:return_value_discarded
@@ -40,16 +46,21 @@ func _on_connection_failed() -> void:
 
 func _on_server_disconnected() -> void:
 	print("Server disconnected")
-	players[get_tree().get_network_unique_id()] = null
+	puppets[get_tree().get_network_unique_id()] = null
 	is_connected = false
 
 
 # Send a request to server to update current player info
-func req_update() -> void:
+func req_update(game_data: Dictionary) -> void:
 	if not is_connected:
 		return
+	# Convert game data to network format before sending
+	pdata.hp = game_data.hp
+	pdata.name = game_data.name
+	pdata.position = game_data.position
+	
 	# Convert data to json
-	var json = var2str(GameData.data)
+	var json = var2str(pdata)
 	# Send request to server
 	rpc_id(1, "req_update", json)
 	
@@ -64,7 +75,12 @@ remote func update_puppet(pid: int, json: String) -> void:
 		return
 	
 	# Create new puppet
-	if not players[pid]:
-		pass
-	players[pid] = str2var(json)
-	print("Updated player: " + players[pid])
+	if not puppets[pid]:
+		var puppet_player = PuppetPlayerScene.instance()
+		puppet_player.name = str(pid)
+		puppet_player.set_network_master(pid)
+		add_child(puppet_player)
+
+	
+	puppets[pid] = str2var(json)
+	print("Updated puppet: " + puppets[pid])

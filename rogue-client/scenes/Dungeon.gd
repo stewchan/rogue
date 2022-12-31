@@ -11,6 +11,7 @@ var previous_floor: Node2D
 
 onready var player: KinematicBody2D = get_parent().get_node("Player")
 onready var camera: Camera2D = get_parent().get_node("Camera2D")
+onready var players: Array = get_parent().get_node("Players").get_children()
 
 
 # Build a dungeon with the given number of floors
@@ -75,7 +76,8 @@ func _connect_stairs() -> void:
 
 func _spawn_player(descending: bool = true) -> void:
 	current_floor.set_player_spawn(player, descending)
-	GameData.position = player.global_position
+	for p in players:
+		GameData.position = p.global_position
 
 
 

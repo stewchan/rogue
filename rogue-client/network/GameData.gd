@@ -18,28 +18,28 @@ var position: Vector2 = Vector2.ZERO setget set_position, get_position
 
 func set_hp(value: int) -> void:
 	data.hp = value
-	Network.req_update()
+	Network.req_update(data)
 func get_hp() -> int:
 	return data.hp
 	
 
 func set_current_floor(value: int) -> void:
 	data.current_floor = value
-	Network.req_update()
+	Network.req_update(data)
 func get_current_floor() -> int:
 	return data.current_floor
 
 
 func set_player_name(value: String) -> void:
 	data.name = value
-	Network.req_update()
+	Network.req_update(data)
 func get_player_name() -> String:
-	return data.player_name
+	return data.name
 
 
 func set_position(value: Vector2) -> void:
 	data.position = value
-	Network.req_update()
+	Network.req_update(data)
 func get_position() -> Vector2:
 	return data.position
 
